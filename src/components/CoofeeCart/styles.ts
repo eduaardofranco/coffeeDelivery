@@ -11,6 +11,7 @@ export const CartContainer = styled.div`
     /* padding: 3rem; */
     margin-bottom: 4rem;
     margin-right: 3.2rem;
+    padding-bottom: 1.5rem;
     width: 25.6rem;
 
     &:nth-of-type(4n) {
@@ -57,6 +58,8 @@ export const Footer = styled.div`
     display: flex;
     align-items: center;
     margin-top: 2rem;
+    justify-content: space-around;
+    width: 100%;
     > p {
         color: ${(props) => props.theme['brown-700']};
         display: flex;
@@ -68,4 +71,8 @@ export const Footer = styled.div`
             margin-left: 3px;
         }
     }
+`;
+
+export const Finalize = styled.div`
+    
 `;

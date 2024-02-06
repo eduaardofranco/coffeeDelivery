@@ -1,4 +1,5 @@
-import { CartContainer, Description, Footer } from './styles'
+import { Counter } from '../Counter'
+import { CartContainer, Description, Footer, Finalize } from './styles'
 
 interface Coofee {
     image: string
@@ -25,7 +26,9 @@ export function CoofeeCart({ title, image, tags, description, price }: Coofee) {
                 €
                     <span>{price.toFixed(2)}</span>
                 </p>
-
+                <Finalize>
+                    <Counter />
+                </Finalize>
             </Footer>
         </CartContainer>
     )
