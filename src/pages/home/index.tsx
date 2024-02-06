@@ -4,19 +4,104 @@ import { HomeContainer } from './styles'
 
 const coffees = [
     {
-        title: 'Traditinal Expresso',
-        tags: ['Traditional', 'Com leite'],
+        title: 'Traditinal Espresso',
+        tags: ['Traditional', 'with milk'],
         image: 'coffee1.png',
-        description: 'O tradicional café feito com água quente e grãos moídos',
-        price: 9.90
+        description: 'The tradional is made with hot water and ground coffee',
+        price: 3.80
     },
     {
-        title: 'Chocolate Quente',
-        tags: ['Especial', 'Com leite'],
+        title: 'American Espresso',
+        tags: ['traditional'],
         image: 'coffee2.png',
-        description: 'Bebida feita com chocolate dissolvido no leite quente e café',
-        price: 9.90
-    }
+        description: 'Diluted espresso, less intense than the traditional',
+        price: 2.75
+    },
+    {
+        title: 'Creamy Espresso',
+        tags: ['traditional'],
+        image: 'coffee3.png',
+        description: 'Traditional espresso with creamy foam',
+        price: 3.75
+    },
+    {
+        title: 'Iced Espresso',
+        tags: ['traditional', 'iced'],
+        image: 'coffee4.png',
+        description: 'Drink prepared with espresso and ice',
+        price: 3.75
+    },
+    {
+        title: 'Cortado',
+        tags: ['traditional', 'with milk'],
+        image: 'coffee5.png',
+        description: 'Half traditional espresso with half steamed milk',
+        price: 4.75
+    },
+    {
+        title: 'Latte',
+        tags: ['traditional', 'with milk'],
+        image: 'coffee6.png',
+        description: 'A shot of espresso with double the milk and creamy foam',
+        price: 4.00
+    },
+    {
+        title: 'Capuccino',
+        tags: ['traditional', 'with milk'],
+        image: 'coffee7.png',
+        description: 'Drink made from equal doses of coffee, milk and foam',
+        price: 3.95
+    },
+    {
+        title: 'Macchiato',
+        tags: ['traditional', 'with milk'],
+        image: 'coffee8.png',
+        description: 'Espresso mixed with some hot milk and froth',
+        price: 3.95
+    },
+    {
+        title: 'Mocaccino',
+        tags: ['traditional', 'with milk'],
+        image: 'coffee9.png',
+        description: 'Espresso with chocolate syrup, little milk and foam',
+        price: 4.95
+    },
+    {
+        title: 'Hot Chocolate',
+        tags: ['special', 'with milk'],
+        image: 'coffee10.png',
+        description: 'Drink made with chocolate mixed into hot milk and coffee',
+        price: 3.95
+    },
+    {
+        title: 'Cubano',
+        tags: ['special', 'iced', 'alcoholic'],
+        image: 'coffee11.png',
+        description: 'Iced espresso drink with rum, cream and mint',
+        price: 4.95
+    },
+    {
+        title: 'Hawaiian',
+        tags: ['special'],
+        image: 'coffee12.png',
+        description: 'Sweet drink prepared with coffee and coconut milk',
+        price: 3.95
+    },
+    {
+        title: 'Arabic',
+        tags: ['special'],
+        image: 'coffee13.png',
+        description: 'Drink prepared with Arabic coffee beans and spices',
+        price: 3.95
+    },
+    {
+        title: 'Irish Coffee',
+        tags: ['special', 'alcoholic'],
+        image: 'coffee14.png',
+        description: 'Drink made from coffee, Irish whiskey, sugar and whipped cream',
+        price: 5.95
+    },
+
 ]
 export function Home() {
     return(
@@ -25,18 +110,20 @@ export function Home() {
            
             <main>
                 <h1>Our Coffees</h1>
-                {
-                    coffees && coffees.map((coffee, index) => (
-                        <CoofeeCart 
-                            key={String(index)}
-                            title={coffee.title}
-                            image={coffee.image}
-                            description={coffee.description}
-                            price={coffee.price}
-                            tags={coffee.tags}
-                        />
-                    ))
-                }
+                <div className="wrapper">
+                    {
+                        coffees && coffees.map((coffee, index) => (
+                            <CoofeeCart 
+                                key={coffee.title}
+                                title={coffee.title}
+                                image={coffee.image}
+                                description={coffee.description}
+                                price={coffee.price}
+                                tags={coffee.tags}
+                            />
+                        ))
+                    }
+                </div>
             </main>
         </HomeContainer>
 

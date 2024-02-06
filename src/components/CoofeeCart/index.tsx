@@ -1,4 +1,4 @@
-import { CartContainer } from './styles'
+import { CartContainer, Description, Footer } from './styles'
 
 interface Coofee {
     image: string
@@ -13,12 +13,20 @@ export function CoofeeCart({ title, image, tags, description, price }: Coofee) {
     return(
         <CartContainer>
             <img src={`${imageUrl}${image}`} alt="" />
-            {tags && tags.map((tag) => (
-                <span key={tag}>{tag}</span>
-            ))}
+            <div className="tags">
+                {tags && tags.map((tag) => (
+                    <span key={tag}>{tag}</span>
+                ))}
+            </div>
             <h3>{title}</h3>
-            <p>{description}</p>
-            <p>{price}</p>
+            <Description>{description}</Description>
+            <Footer>
+                <p>
+                €
+                    <span>{price.toFixed(2)}</span>
+                </p>
+
+            </Footer>
         </CartContainer>
     )
 }
