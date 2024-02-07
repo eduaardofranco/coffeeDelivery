@@ -14,6 +14,7 @@ export function Header() {
                     Porto Alegre, RS
                 </Local>
                 <Cart to="/cart">
+                    <span>3</span>
                     <ShoppingCart size={22} weight="fill" />
                 </Cart>
             </div>

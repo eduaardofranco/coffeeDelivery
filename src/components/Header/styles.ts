@@ -43,5 +43,21 @@ export const Cart = styled(Link)`
     color: ${(props) => props.theme['yellow-700']};
     padding: 8px;
     border-radius: 6px;
+    position: relative;
+    > span {
+        position: absolute;
+        background: ${(props) => props.theme['yellow-700']};
+        border-radius: 999px;
+        color: ${(props) => props.theme['white-300']};
+        font-size: 12px;
+        height: 20px;
+        width: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        top: -10px;
+        right: -10px;
+    }
 
 `;
