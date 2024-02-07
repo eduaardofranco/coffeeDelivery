@@ -4,14 +4,12 @@ export const CartContainer = styled.div`
     background: ${(props) => props.theme['white-500']};
     display: flex;
     flex-direction: column;
-    border-radius: 10px 50px 10px 50px;
+    border-radius: 6px 36px 6px 36px;
 
     align-items: center;
-
-    /* padding: 3rem; */
     margin-bottom: 4rem;
     margin-right: 3.2rem;
-    padding-bottom: 1.5rem;
+    padding: 1.5rem;
     width: 25.6rem;
 
     &:nth-of-type(4n) {
@@ -20,7 +18,7 @@ export const CartContainer = styled.div`
 
     img {
         width: 12rem;
-        margin-top: -20px;
+        margin-top: -35px;
     }
 
     .tags {
@@ -51,7 +49,6 @@ export const Description = styled.p`
     text-align: center;
     overflow: hidden;
     height: 3.7rem;
-    width: 80%;
 `;
 
 export const Footer = styled.div`
@@ -74,5 +71,19 @@ export const Footer = styled.div`
 `;
 
 export const Finalize = styled.div`
-    
+    display: flex;
+    gap: 5px;
+`;
+
+export const AddCartButton = styled.button`
+    border: none;
+    border-radius: 6px;
+    background: ${(props) => props.theme['purple-700']};
+    color: ${(props) => props.theme['white-300']};
+    cursor: pointer;
+    padding: 0 .8rem;
+    transition: background .1s;
+    &:hover {
+        background: ${(props) => props.theme['purple-500']};
+    }
 `;

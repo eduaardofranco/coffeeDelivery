@@ -106,7 +106,7 @@ const coffees = [
 export function Home() {
     return(
         <HomeContainer>
-            {/* <img className='banner' src={banner} alt="" /> */}
+            <img className='banner' src={banner} alt="" />
            
             <main>
                 <h1>Our Coffees</h1>

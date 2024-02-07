@@ -1,5 +1,6 @@
+import { ShoppingCart } from 'phosphor-react'
 import { Counter } from '../Counter'
-import { CartContainer, Description, Footer, Finalize } from './styles'
+import { CartContainer, Description, Footer, Finalize, AddCartButton } from './styles'
 
 interface Coofee {
     image: string
@@ -28,6 +29,9 @@ export function CoofeeCart({ title, image, tags, description, price }: Coofee) {
                 </p>
                 <Finalize>
                     <Counter />
+                    <AddCartButton>
+                        <ShoppingCart size={22} weight="fill" />
+                    </AddCartButton>
                 </Finalize>
             </Footer>
         </CartContainer>
