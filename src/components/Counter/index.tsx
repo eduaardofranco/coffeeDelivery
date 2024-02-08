@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { CounterContainer } from './styles'
 import { Plus, Minus } from 'phosphor-react'
-export function Counter() {
+export function Counter({ initial = 1 }) {
 
-    const [quantity, setQuantity] = useState(0)
+
+    const [quantity, setQuantity] = useState(initial)
 
     function handdleAdcItem() {
         setQuantity(prevState => prevState + 1)

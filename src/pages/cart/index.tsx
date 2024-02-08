@@ -1,8 +1,11 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "phosphor-react";
-import { AddressContainer, AdressBox, CartContainer, Order, PaymentBox, PaymentButton } from "./styles";
+import { AddressContainer, AddressForm, AdressBox, CartContainer, CoffeeItem, Order, OrderBox, OrderContainer, PaymentBox, PaymentButton, RemoveButton } from "./styles";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Counter } from "../../components/Counter";
 
 export function Cart() {
+    const [paymentType, setPaymentType] = useState('')
     return(
         <CartContainer>
             <AddressContainer>
@@ -14,36 +17,29 @@ export function Cart() {
                             Delivery Adress <span>Inform your address for delivery</span>
                         </h3>
                     </div>
-                    <form action="">
+                    <AddressForm action="">
                         <fieldset>
-                            <label htmlFor="number">Cep</label>
-                            <input type="number" id="number" placeholder="CEP" />
+                            <input type="text" id="number" placeholder="CEP" />
                         </fieldset>
-                        <fieldset>
-                            <label htmlFor="street">Street</label>
+                        <fieldset className="streetInput">
                             <input type="text" id="street" placeholder="Street" />
                         </fieldset>
                         <fieldset>
-                            <label htmlFor="number">Number</label>
-                            <input type="number" id="number" placeholder="Number"/>
+                            <input type="text" id="number" placeholder="Number"/>
                         </fieldset>
-                        <fieldset>
-                            <label htmlFor="complemento">Complemento</label>
+                        <fieldset className="complementoInput">
                             <input type="text" id="complemento" placeholder="Complemento"/>
                         </fieldset>
                         <fieldset> 
-                            <label htmlFor="state">State</label>
                             <input type="text" id="state"  placeholder="State"/>
                         </fieldset>
-                        <fieldset>
-                            <label htmlFor="city">City</label>
+                        <fieldset className="cityInput">
                             <input type="text" id="city"  placeholder="City"/>
                         </fieldset>
-                        <fieldset>
-                            <label htmlFor="uf">UF</label>
+                        <fieldset className="ufInput">
                             <input type="text" id="uf"  placeholder="UF"/>
                         </fieldset>
-                    </form>
+                    </AddressForm>
                 </AdressBox>
                 <PaymentBox>
                     <div className="title">
@@ -52,24 +48,49 @@ export function Cart() {
                             Payment<span>Payment is made upon delivery. Choose the way you want to pay</span>
                         </h3>
                     </div>
-                    <PaymentButton>
-                        <CreditCard size={14} />
-                        Credit Card
-                    </PaymentButton>
-                    <PaymentButton>
-                        <Bank size={16} />
-                        Debit Card
-                    </PaymentButton>
-                    <PaymentButton>
-                        <Money size={16} />
-                        Money
-                    </PaymentButton>
+                    <div className="paymentType">
+                        <PaymentButton 
+                            onClick={() => setPaymentType('creditCard')}
+                            className={paymentType == 'creditCard' ? 'active' : ''}
+                        >
+                            <CreditCard size={14} />
+                            Credit Card
+                        </PaymentButton>
+                        <PaymentButton
+                            onClick={() => setPaymentType('debitCard')}
+                            className={paymentType == 'debitCard' ? 'active' : ''}
+                        >
+                            <Bank size={16} />
+                            Debit Card
+                        </PaymentButton>
+                        <PaymentButton
+                            onClick={() => setPaymentType('money')}
+                            className={paymentType == 'money' ? 'active' : ''}
+                        >
+                            <Money size={16} />
+                            Money
+                        </PaymentButton>
+                    </div>
                 </PaymentBox>
 
             </AddressContainer>
-            <Order>
+            <OrderContainer>
                 <h2>Selected Coffees</h2>
-            </Order>
+                <OrderBox>
+                    <CoffeeItem>
+                        <img src="/src/assets/coffee1.png" alt="Coffee Name" />
+                        <div className="details">
+                            <h3>Traditional Espresso</h3>
+                            <div className="controls">
+                                <Counter initial={2} />
+                                <RemoveButton>Remove</RemoveButton>
+                            </div>
+
+                        </div>
+                        <p className="price">€4.67</p>
+                    </CoffeeItem>
+                </OrderBox>
+            </OrderContainer>
         </CartContainer>
     )
 }
