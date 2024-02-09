@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
-export const CounterContainer = styled.div`
+export const CounterContainer = styled.div<{ $issmall?: boolean; }>`
     background: ${(props) => props.theme['white-900']};
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 5px;
-    padding: .8rem;
+    padding: ${props => props.$issmall ? '.5rem' : '.8rem'};
 
     button {
         cursor: pointer;

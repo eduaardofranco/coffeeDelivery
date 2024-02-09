@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { CounterContainer } from './styles'
 import { Plus, Minus } from 'phosphor-react'
-export function Counter({ initial = 1 }) {
+
+interface QuantityProps {
+    initial?: number
+    issmall?: boolean
+}
+export function Counter({ initial = 1, issmall = false }: QuantityProps) {
 
 
     const [quantity, setQuantity] = useState(initial)
@@ -15,7 +20,7 @@ export function Counter({ initial = 1 }) {
         }
     }
     return(
-        <CounterContainer>
+        <CounterContainer $issmall={issmall}>
             <button onClick={handdleRemoveItem}>
             <Minus size={16} />
             </button>

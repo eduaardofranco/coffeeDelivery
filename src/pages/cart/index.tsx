@@ -82,7 +82,7 @@ export function Cart() {
                         <div className="details">
                             <h3>Traditional Espresso</h3>
                             <div className="controls">
-                                <Counter initial={2} />
+                                <Counter initial={2} issmall />
                                 <RemoveButton>Remove</RemoveButton>
                             </div>
 
