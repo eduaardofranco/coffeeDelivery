@@ -1,5 +1,5 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "phosphor-react";
-import { AddressContainer, AddressForm, AdressBox, CartContainer, CoffeeItem, Order, OrderBox, OrderContainer, PaymentBox, PaymentButton, RemoveButton } from "./styles";
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "phosphor-react";
+import { AddressContainer, AddressForm, AdressBox, CartContainer, CoffeeItem, ConfirmButton, OrdemFinalDetail, Order, OrderBox, OrderContainer, PaymentBox, PaymentButton, RemoveButton, TotalFinalDetail } from "./styles";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { Counter } from "../../components/Counter";
@@ -83,12 +83,45 @@ export function Cart() {
                             <h3>Traditional Espresso</h3>
                             <div className="controls">
                                 <Counter initial={2} issmall />
-                                <RemoveButton>Remove</RemoveButton>
+                                <RemoveButton>
+                                    <Trash size={16} />
+                                    Remove
+                                </RemoveButton>
                             </div>
 
                         </div>
                         <p className="price">€4.67</p>
                     </CoffeeItem>
+                    <CoffeeItem>
+                        <img src="/src/assets/coffee6.png" alt="Coffee Name" />
+                        <div className="details">
+                            <h3>Latte</h3>
+                            <div className="controls">
+                                <Counter initial={1} issmall />
+                                <RemoveButton>
+                                    <Trash size={16} />
+                                    Remove
+                                </RemoveButton>
+                            </div>
+
+                        </div>
+                        <p className="price">€2.80</p>
+                    </CoffeeItem>
+                    <div className="finalDetails">
+                        <OrdemFinalDetail>
+                            <span>Items total</span>
+                            <span>€20.30</span>
+                        </OrdemFinalDetail>
+                        <OrdemFinalDetail>
+                            <span>Delivery</span>
+                            <span>€4.90</span>
+                        </OrdemFinalDetail>
+                        <TotalFinalDetail>
+                            <span>Total</span>
+                            <span>€30.50</span>
+                        </TotalFinalDetail>
+                    </div>
+                    <ConfirmButton>Confirm Order</ConfirmButton>
                 </OrderBox>
             </OrderContainer>
         </CartContainer>

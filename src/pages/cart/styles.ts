@@ -12,6 +12,9 @@ export const CartContainer = styled.main`
         color: ${(props) => props.theme['brown-900']};
         margin-bottom: 2rem;
     }
+    .finalDetails {
+        margin-top: 1rem;
+    }
 `;
 
 export const AddressContainer = styled.div`
@@ -69,15 +72,18 @@ export const PaymentBox = styled(Box)`
 export const OrderBox = styled(Box)`
     display: flex;
     border-radius: 6px 44px 6px 44px;
-    padding: 4rem;
+    padding: 2rem 4rem 4rem;
+    flex-direction: column;
 `;
 
 export const CoffeeItem = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: start;
+    padding: 2rem 0;
     gap: 1.5rem;
     width: 100%;
+    border-bottom: 1px solid ${(props) => props.theme['white-900']};
     h3 {
         color: ${(props) => props.theme['brown-700']};
         font-weight: normal;
@@ -102,7 +108,27 @@ export const CoffeeItem = styled.div`
     }
 `;
 export const RemoveButton = styled.button`
-    
+    background: ${(props) => props.theme['white-900']};
+    border: none;
+    border-radius: 6px;
+    padding: 0 .8rem;
+    text-transform: uppercase;
+    color: ${(props) => props.theme['brown-500']};
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+    transition: background .2s;
+    &:hover {
+        background: ${(props) => props.theme['brown-100']};
+    }
+
+    svg {
+        color: ${(props) => props.theme['purple-500']};
+    }
 `;
 
 export const PaymentButton = styled.a`
@@ -167,5 +193,40 @@ export const AddressForm = styled.form`
             background: ${(props) => props.theme['white-700']};
             outline: 1px solid ${(props) => props.theme['yellow-700']};
         }
+    }
+`;
+export const OrdemFinalDetail = styled.p`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: ${(props) => props.theme['brown-500']};
+    font-size: 1.4rem;
+    margin: .6rem 0;
+    span {
+        &:last-child {
+            font-size: 1.6rem;
+        }
+    }
+`;
+export const TotalFinalDetail = styled(OrdemFinalDetail)`
+    font-size: 2rem;
+    font-weight: bold;
+    color: ${(props) => props.theme['brown-700']};
+
+`;
+export const ConfirmButton = styled.button`
+    background: ${(props) => props.theme['yellow-500']};
+    border: none;
+    border-radius: 6px;
+    color: ${(props) => props.theme['white-100']};
+    padding: 1.5rem 0;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1.8rem;
+    transition: background .2s;
+    &:hover {
+        background: ${(props) => props.theme['yellow-700']};
     }
 `;
