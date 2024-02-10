@@ -4,6 +4,7 @@ import { HomeContainer } from './styles'
 
 const coffees = [
     {
+        id: 1,
         title: 'Traditinal Espresso',
         tags: ['Traditional', 'with milk'],
         image: 'coffee1.png',
@@ -11,6 +12,7 @@ const coffees = [
         price: 3.80
     },
     {
+        id: 2,
         title: 'American Espresso',
         tags: ['traditional'],
         image: 'coffee2.png',
@@ -18,6 +20,7 @@ const coffees = [
         price: 2.75
     },
     {
+        id: 3,
         title: 'Creamy Espresso',
         tags: ['traditional'],
         image: 'coffee3.png',
@@ -25,6 +28,7 @@ const coffees = [
         price: 3.75
     },
     {
+        id: 4,
         title: 'Iced Espresso',
         tags: ['traditional', 'iced'],
         image: 'coffee4.png',
@@ -32,6 +36,7 @@ const coffees = [
         price: 3.75
     },
     {
+        id: 5,
         title: 'Cortado',
         tags: ['traditional', 'with milk'],
         image: 'coffee5.png',
@@ -39,6 +44,7 @@ const coffees = [
         price: 4.75
     },
     {
+        id: 6,
         title: 'Latte',
         tags: ['traditional', 'with milk'],
         image: 'coffee6.png',
@@ -46,6 +52,7 @@ const coffees = [
         price: 4.00
     },
     {
+        id: 7,
         title: 'Capuccino',
         tags: ['traditional', 'with milk'],
         image: 'coffee7.png',
@@ -53,6 +60,7 @@ const coffees = [
         price: 3.95
     },
     {
+        id: 8,
         title: 'Macchiato',
         tags: ['traditional', 'with milk'],
         image: 'coffee8.png',
@@ -60,6 +68,7 @@ const coffees = [
         price: 3.95
     },
     {
+        id: 8,
         title: 'Mocaccino',
         tags: ['traditional', 'with milk'],
         image: 'coffee9.png',
@@ -67,6 +76,7 @@ const coffees = [
         price: 4.95
     },
     {
+        id: 9,
         title: 'Hot Chocolate',
         tags: ['special', 'with milk'],
         image: 'coffee10.png',
@@ -74,6 +84,7 @@ const coffees = [
         price: 3.95
     },
     {
+        id: 10,
         title: 'Cubano',
         tags: ['special', 'iced', 'alcoholic'],
         image: 'coffee11.png',
@@ -81,6 +92,7 @@ const coffees = [
         price: 4.95
     },
     {
+        id: 11,
         title: 'Hawaiian',
         tags: ['special'],
         image: 'coffee12.png',
@@ -88,6 +100,7 @@ const coffees = [
         price: 3.95
     },
     {
+        id: 12,
         title: 'Arabic',
         tags: ['special'],
         image: 'coffee13.png',
@@ -95,6 +108,7 @@ const coffees = [
         price: 3.95
     },
     {
+        id: 13,
         title: 'Irish Coffee',
         tags: ['special', 'alcoholic'],
         image: 'coffee14.png',

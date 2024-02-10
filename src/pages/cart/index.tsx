@@ -1,11 +1,41 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "phosphor-react";
-import { AddressContainer, AddressForm, AdressBox, CartContainer, CoffeeItem, ConfirmButton, OrdemFinalDetail, Order, OrderBox, OrderContainer, PaymentBox, PaymentButton, RemoveButton, TotalFinalDetail } from "./styles";
-import { NavLink } from "react-router-dom";
+import { AddressContainer,
+         AddressForm,
+         AdressBox,
+         CartContainer,
+         CoffeeItem,
+         ConfirmButton,
+         OrdemFinalDetail,
+         OrderBox,
+         OrderContainer,
+         PaymentBox,
+         PaymentButton,
+         RemoveButton,
+         TotalFinalDetail 
+        } from "./styles";
 import { useState } from "react";
 import { Counter } from "../../components/Counter";
+import { useForm } from 'react-hook-form'
+import  * as zod  from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+
+const newAddressFormSchema = zod.object({
+    cep: zod.number().min(8).max(8, 'required')
+})
 
 export function Cart() {
+    
+    const { register, handleSubmit, formState } = useForm({
+        resolver: zodResolver(newAddressFormSchema),
+    })
+
+
     const [paymentType, setPaymentType] = useState('')
+
+    function handdlePlaceOrder(data: any) {
+        console.log(data)
+    }
+
     return(
         <CartContainer>
             <AddressContainer>
@@ -17,28 +47,64 @@ export function Cart() {
                             Delivery Adress <span>Inform your address for delivery</span>
                         </h3>
                     </div>
-                    <AddressForm action="">
+                    <AddressForm onSubmit={handleSubmit(handdlePlaceOrder)}>
                         <fieldset>
-                            <input type="text" id="number" placeholder="CEP" />
+                            <input
+                                type="text" 
+                                id="number"
+                                placeholder="CEP"
+                                {...register('cep', { required: true})}
+                            />
                         </fieldset>
                         <fieldset className="streetInput">
-                            <input type="text" id="street" placeholder="Street" />
+                            <input
+                                type="text"
+                                id="street"
+                                placeholder="Street"
+                                {...register('street')}
+                            />
                         </fieldset>
                         <fieldset>
-                            <input type="text" id="number" placeholder="Number"/>
+                            <input
+                                type="text"
+                                id="number"
+                                placeholder="Number"
+                                {...register('number')}
+                            />
                         </fieldset>
                         <fieldset className="complementoInput">
-                            <input type="text" id="complemento" placeholder="Complemento"/>
+                            <input
+                                type="text"
+                                id="complemento"
+                                placeholder="Complemento"
+                                {...register('complemento')}
+                            />
                         </fieldset>
                         <fieldset> 
-                            <input type="text" id="state"  placeholder="State"/>
+                            <input
+                                type="text"
+                                id="state"
+                                placeholder="State"
+                                {...register('state')}
+                            />
                         </fieldset>
                         <fieldset className="cityInput">
-                            <input type="text" id="city"  placeholder="City"/>
+                            <input
+                                type="text"
+                                id="city"
+                                placeholder="City"
+                                {...register('city')}
+                            />
                         </fieldset>
                         <fieldset className="ufInput">
-                            <input type="text" id="uf"  placeholder="UF"/>
+                            <input
+                                type="text"
+                                id="uf"
+                                placeholder="UF"
+                                {...register('uf')}
+                            />
                         </fieldset>
+                        <button type="submit">enivar</button>
                     </AddressForm>
                 </AdressBox>
                 <PaymentBox>
