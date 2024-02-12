@@ -139,34 +139,46 @@ export const RemoveButton = styled.button`
     }
 `;
 
-export const PaymentButton = styled.a`
-    background: ${(props) => props.theme['white-900']};
-    color: ${(props) => props.theme['brown-500']};
-    border-radius: 6px;
-    border: 1px solid transparent;
-    text-transform: uppercase;
-    font-size: 1.2rem;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 2rem;
+export const PaymentButton = styled.div`
     width: 100%;
-    transition: background .1s;
-    &:hover {
-        background: ${(props) => props.theme['brown-100']};
-        color: ${(props) => props.theme['brown-700']};
+    label {
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        cursor: pointer;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: ${(props) => props.theme['white-900']};
+        color: ${(props) => props.theme['brown-500']};
+        border: 1px solid transparent;
+        border-radius: 6px;
+        width: 100%;
+        padding: 2rem;
+        transition: background .1s;
 
+
+        &:hover {
+            background: ${(props) => props.theme['brown-100']};
+            color: ${(props) => props.theme['brown-700']};
+    
+        }
+    }
+    input[type="radio"]:checked + label {
+        background: ${(props) => props.theme['purple-300']};
+        border: 1px solid ${(props) => props.theme['purple-500']};
+    }
+    input {
+        opacity: 0;
+        position: absolute;
+        top: 1;
+        left: 1;
+        height: 1px;
+        width: 1px;
     }
     svg {
         color: ${(props) => props.theme['purple-500']};
         margin-right: 1rem;
-    }
-    &.active {
-        background: ${(props) => props.theme['purple-300']};
-        border: 1px solid ${(props) => props.theme['purple-500']};
     }
 `;
 export const AddressForm = styled.div`

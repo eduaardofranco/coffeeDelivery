@@ -21,36 +21,34 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 
 const newAddressFormSchema = zod.object({
-    cep: zod.string().refine( value => value.length === 9, {
-        message: 'Please inform a valid CEP: 00000-000'
+    cep: zod.number({ 
+        required_error: "CEP is required",
+        invalid_type_error: "CEP must be a 8 digit number",
     }),
     street: zod.string().min(4, { message: 'Street is required' }),
-    houseNumber: zod.number()
-    .refine(value => typeof value === 'number', {
-        message: 'House number is required and must be a number',
-      }),
+    houseNumber: zod.number().min(1, { message: 'Number is required'}),
     complemento: zod.string(),
-    neighbourhood: zod.string().min(3, { message: 'Provide a valid neighbourhood'}),
-    city: zod.string().min(3, { message: 'Provide a valid city'}),
-    uf: zod.string().min(2).max(2, { message: '2 digit only'})
+    neighbourhood: zod.string().min(3, { message: 'Neighbourhood is required'}),
+    city: zod.string().min(3, { message: 'city is required'}),
+    uf: zod.string().min(2, { message: 'required' }).max(2),
+    payment: zod.enum(['creditCard', 'debitCard', 'cash']).refine(value => value !== undefined, {
+        message: 'Please select a payment method'
+    })
 
 })
 
 export function Cart() {
     
     const { register, handleSubmit, formState: {errors} } = useForm({
-        resolver: zodResolver(newAddressFormSchema),
+        resolver: zodResolver(newAddressFormSchema)
     })
 
-
-    const [paymentType, setPaymentType] = useState('')
     const [formValidationError, setFormValidationError] = useState({})
 
     function handdlePlaceOrder(data: any) {
-        // if(errors) {
-            console.log('oi')
-            console.log(formValidationError)
-        // }
+        console.log(data)
+        setFormValidationError({})
+
     }
     function onError( errors: FieldErrors<typeof newAddressFormSchema>) {
         console.log('form errors', errors)
@@ -72,10 +70,10 @@ export function Cart() {
                         <AddressForm>
                             <fieldset>
                                 <input
-                                    type="number" 
+                                    type="text" 
                                     id="number"
                                     placeholder="CEP"
-                                    {...register('cep', { required: true })}
+                                    {...register('cep', { required: true, valueAsNumber: true })}
                                 />
                                 {formValidationError && (formValidationError as Record<string, any>)['cep'] && (
                                     <p className="formErrorMessage">{(formValidationError as Record<string, any>)['cep'].message}</p>
@@ -157,28 +155,48 @@ export function Cart() {
                             </h3>
                         </div>
                         <div className="paymentType">
-                            <PaymentButton 
-                                onClick={() => setPaymentType('creditCard')}
-                                className={paymentType == 'creditCard' ? 'active' : ''}
-                            >
-                                <CreditCard size={14} />
-                                Credit Card
+                            <PaymentButton>
+                                <input
+                                    type="radio"
+                                    id="creditCardPayment" 
+                                    value="creditCard"
+                                    {...register('payment', { required: true })}
+                                />
+                                <label htmlFor="creditCardPayment">
+                                    <CreditCard size={14} />
+                                    Credit Card
+                                </label>
                             </PaymentButton>
-                            <PaymentButton
-                                onClick={() => setPaymentType('debitCard')}
-                                className={paymentType == 'debitCard' ? 'active' : ''}
-                            >
-                                <Bank size={16} />
-                                Debit Card
+                            <PaymentButton>
+                                <input
+                                    type="radio"
+                                    id="debitCardPayment"
+                                    value="debitCard"
+                                    {...register('payment', { required: true })}
+                                />
+                                <label htmlFor="debitCardPayment">
+                                    <Bank size={16} />
+                                    Debit Card
+
+                                </label>
                             </PaymentButton>
-                            <PaymentButton
-                                onClick={() => setPaymentType('money')}
-                                className={paymentType == 'money' ? 'active' : ''}
-                            >
-                                <Money size={16} />
-                                Money
+                            <PaymentButton>
+                                <input
+                                    type="radio"
+                                    id="moneyPayment"
+                                    value="cash"
+                                    {...register('payment', { required: true })}
+                                />
+                                <label htmlFor="moneyPayment">
+                                    <Money size={16} />
+                                    Money
+
+                                </label>
                             </PaymentButton>
                         </div>
+                        {formValidationError && (formValidationError as Record<string, any>)['payment'] && (
+                            <p className="formErrorMessage">{(formValidationError as Record<string, any>)['payment'].message}</p>
+                        )}
                     </PaymentBox>
 
                 </AddressContainer>
