@@ -18,6 +18,11 @@ export const CartContainer = styled.main`
         justify-content: space-between;
 
     }
+    .formErrorMessage {
+        font-size: 1rem;
+        color: ${(props) => props.theme['purple-500']};
+        margin-top: .5rem;
+    }
 `;
 
 export const AddressContainer = styled.div`

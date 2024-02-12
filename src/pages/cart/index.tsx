@@ -24,7 +24,16 @@ const newAddressFormSchema = zod.object({
     cep: zod.string().refine( value => value.length === 9, {
         message: 'Please inform a valid CEP: 00000-000'
     }),
-    street: zod.string().min(4, { message: 'Street is required' })
+    street: zod.string().min(4, { message: 'Street is required' }),
+    houseNumber: zod.number()
+    .refine(value => typeof value === 'number', {
+        message: 'House number is required and must be a number',
+      }),
+    complemento: zod.string(),
+    neighbourhood: zod.string().min(3, { message: 'Provide a valid neighbourhood'}),
+    city: zod.string().min(3, { message: 'Provide a valid city'}),
+    uf: zod.string().min(2).max(2, { message: '2 digit only'})
+
 })
 
 export function Cart() {
@@ -66,30 +75,33 @@ export function Cart() {
                                     type="number" 
                                     id="number"
                                     placeholder="CEP"
-                                    {...register('cep')}
+                                    {...register('cep', { required: true })}
                                 />
                                 {formValidationError && (formValidationError as Record<string, any>)['cep'] && (
-                             <p>{(formValidationError as Record<string, any>)['cep'].message}</p>
-                        )}
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['cep'].message}</p>
+                                )}
                             </fieldset>
                             <fieldset className="streetInput">
                                 <input
                                     type="text"
                                     id="street"
                                     placeholder="Street"
-                                    {...register('street')}
+                                    {...register('street', { required: true })}
                                 />
                                 {formValidationError && (formValidationError as Record<string, any>)['street'] && (
-                             <p>{(formValidationError as Record<string, any>)['street'].message}</p>
-                        )}
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['street'].message}</p>
+                                )}
                             </fieldset>
                             <fieldset>
                                 <input
-                                    type="text"
-                                    id="number"
+                                    type="number"
+                                    id="houseNumber"
                                     placeholder="Number"
-                                    {...register('number')}
+                                    {...register('houseNumber', { required: true, valueAsNumber: true } )}
                                 />
+                                {formValidationError && (formValidationError as Record<string, any>)['houseNumber'] && (
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['houseNumber'].message}</p>
+                                )}
                             </fieldset>
                             <fieldset className="complementoInput">
                                 <input
@@ -98,30 +110,42 @@ export function Cart() {
                                     placeholder="Complemento"
                                     {...register('complemento')}
                                 />
+                                {formValidationError && (formValidationError as Record<string, any>)['complemento'] && (
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['complemento'].message}</p>
+                                )}
                             </fieldset>
                             <fieldset> 
                                 <input
                                     type="text"
-                                    id="state"
-                                    placeholder="State"
-                                    {...register('state')}
+                                    id="neighbourhood"
+                                    placeholder="Neighbourhood"
+                                    {...register('neighbourhood', { required: true })}
                                 />
+                                {formValidationError && (formValidationError as Record<string, any>)['neighbourhood'] && (
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['neighbourhood'].message}</p>
+                                )}
                             </fieldset>
                             <fieldset className="cityInput">
                                 <input
                                     type="text"
                                     id="city"
                                     placeholder="City"
-                                    {...register('city')}
+                                    {...register('city', { required: true })}
                                 />
+                                {formValidationError && (formValidationError as Record<string, any>)['city'] && (
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['city'].message}</p>
+                                )}
                             </fieldset>
                             <fieldset className="ufInput">
                                 <input
                                     type="text"
                                     id="uf"
                                     placeholder="UF"
-                                    {...register('uf')}
+                                    {...register('uf', { required: true })}
                                 />
+                                {formValidationError && (formValidationError as Record<string, any>)['uf'] && (
+                                    <p className="formErrorMessage">{(formValidationError as Record<string, any>)['uf'].message}</p>
+                                )}
                             </fieldset>
                         </AddressForm>
                     </AdressBox>
