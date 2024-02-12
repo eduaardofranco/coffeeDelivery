@@ -3,9 +3,6 @@ import styled from 'styled-components'
 export const CartContainer = styled.main`
     width: 1120px;
     margin: 0 auto;
-    display: flex;
-    gap: 2rem;
-    justify-content: space-between;
     
     h1, h2 {
         font-size: 1.8rem;
@@ -14,6 +11,12 @@ export const CartContainer = styled.main`
     }
     .finalDetails {
         margin-top: 1rem;
+    }
+    form {
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+
     }
 `;
 
@@ -161,7 +164,7 @@ export const PaymentButton = styled.a`
         border: 1px solid ${(props) => props.theme['purple-500']};
     }
 `;
-export const AddressForm = styled.form`
+export const AddressForm = styled.div`
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
