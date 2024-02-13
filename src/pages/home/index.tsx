@@ -1,8 +1,10 @@
+import { useReducer } from 'react'
 import banner from '../../assets/Intro.png'
 import { CoofeeCart } from '../../components/CoofeeCart'
 import { HomeContainer } from './styles'
+import { addItemToCart } from '../../reducers/actions'
 
-const coffees = [
+export const coffees = [
     {
         id: 1,
         title: 'Traditinal Espresso',
@@ -68,7 +70,7 @@ const coffees = [
         price: 3.95
     },
     {
-        id: 8,
+        id: 9,
         title: 'Mocaccino',
         tags: ['traditional', 'with milk'],
         image: 'coffee9.png',
@@ -76,7 +78,7 @@ const coffees = [
         price: 4.95
     },
     {
-        id: 9,
+        id: 10,
         title: 'Hot Chocolate',
         tags: ['special', 'with milk'],
         image: 'coffee10.png',
@@ -84,7 +86,7 @@ const coffees = [
         price: 3.95
     },
     {
-        id: 10,
+        id: 11,
         title: 'Cubano',
         tags: ['special', 'iced', 'alcoholic'],
         image: 'coffee11.png',
@@ -92,7 +94,7 @@ const coffees = [
         price: 4.95
     },
     {
-        id: 11,
+        id: 12,
         title: 'Hawaiian',
         tags: ['special'],
         image: 'coffee12.png',
@@ -100,7 +102,7 @@ const coffees = [
         price: 3.95
     },
     {
-        id: 12,
+        id: 13,
         title: 'Arabic',
         tags: ['special'],
         image: 'coffee13.png',
@@ -108,7 +110,7 @@ const coffees = [
         price: 3.95
     },
     {
-        id: 13,
+        id: 14,
         title: 'Irish Coffee',
         tags: ['special', 'alcoholic'],
         image: 'coffee14.png',
@@ -117,7 +119,39 @@ const coffees = [
     },
 
 ]
+interface CartItem {
+    id: number
+}
 export function Home() {
+    const [cart, dispatch] = useReducer(
+        (state: CartItem[], action: any) => {
+          switch (action.type) {
+            case 'addItemToCart': {
+              const coffeeId = action.payload.id;
+              const quantity = action.payload.quantity;
+    
+              const existingItem = state.find((item) => item.id === coffeeId);
+    
+              if (existingItem) {
+                // Atualizar a quantidade se o item já estiver no carrinho
+                return state.map((item) =>
+                  item.id === coffeeId ? { ...item, quantity } : item
+                );
+              } else {
+                // Adicionar um novo item se não estiver no carrinho
+                return [...state, { id: coffeeId, quantity }];
+              }
+            }
+            default:
+              return state;
+          }
+        },
+        []
+      );
+      const handleQuantityChange = (coffeeId: number, quantity: number) => {
+          dispatch(addItemToCart(coffeeId, quantity))
+          console.log(cart)
+    }
     return(
         <HomeContainer>
             <img className='banner' src={banner} alt="" />
@@ -126,14 +160,11 @@ export function Home() {
                 <h1>Our Coffees</h1>
                 <div className="wrapper">
                     {
-                        coffees && coffees.map((coffee, index) => (
+                        coffees && coffees.map((coffee) => (
                             <CoofeeCart 
-                                key={coffee.title}
-                                title={coffee.title}
-                                image={coffee.image}
-                                description={coffee.description}
-                                price={coffee.price}
-                                tags={coffee.tags}
+                                key={coffee.id}
+                                coffee={coffee}
+                                onClick={handleQuantityChange}
                             />
                         ))
                     }

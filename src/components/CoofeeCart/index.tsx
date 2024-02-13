@@ -8,27 +8,28 @@ interface Coofee {
     title: string
     description: string
     price: number
+    onClick: (id: number, quantity: number) => void
 }
 const imageUrl = '/src/assets/'
-export function CoofeeCart({ title, image, tags, description, price }: Coofee) {
+export function CoofeeCart({ coffee, onClick }: Coofee) {
 
     return(
         <CartContainer>
-            <img src={`${imageUrl}${image}`} alt="" />
+            <img src={`${imageUrl}${coffee.image}`} alt="" />
             <div className="tags">
-                {tags && tags.map((tag) => (
+                {coffee.tags && coffee.tags.map((tag) => (
                     <span key={tag}>{tag}</span>
                 ))}
             </div>
-            <h3>{title}</h3>
-            <Description>{description}</Description>
+            <h3>{coffee.title}</h3>
+            <Description>{coffee.description}</Description>
             <Footer>
                 <p>
                 €
-                    <span>{price.toFixed(2)}</span>
+                    <span>{coffee.price.toFixed(2)}</span>
                 </p>
                 <Finalize>
-                    <Counter />
+                <Counter initial={1} getQuantity={(quantity) => onClick(coffee.id, quantity)} />
                     <AddCartButton>
                         <ShoppingCart size={22} weight="fill" />
                     </AddCartButton>

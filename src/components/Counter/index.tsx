@@ -5,18 +5,21 @@ import { Plus, Minus } from 'phosphor-react'
 interface QuantityProps {
     initial?: number
     issmall?: boolean
+    getQuantity: (quantity: number) => void;
 }
-export function Counter({ initial = 1, issmall = false }: QuantityProps) {
+export function Counter({ initial = 1, issmall = false, getQuantity }: QuantityProps) {
 
 
     const [quantity, setQuantity] = useState(initial)
 
     function handdleAdcItem() {
         setQuantity(prevState => prevState + 1)
+        getQuantity(quantity + 1)
     }
     function handdleRemoveItem() {
         if(quantity >= 2) {
             setQuantity(prevState => prevState - 1)
+            getQuantity(quantity - 1)
         }
     }
     return(
