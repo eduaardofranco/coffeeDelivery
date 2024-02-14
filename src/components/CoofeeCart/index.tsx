@@ -4,6 +4,7 @@ import { CartContainer, Description, Footer, Finalize, AddCartButton } from './s
 import { useState } from 'react'
 
 interface Coofee {
+    key: number
     image: string
     tags: string[]
     title: string

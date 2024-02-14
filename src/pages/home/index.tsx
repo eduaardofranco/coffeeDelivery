@@ -1,8 +1,9 @@
-import { useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 import banner from '../../assets/Intro.png'
 import { CoofeeCart } from '../../components/CoofeeCart'
 import { HomeContainer } from './styles'
-import { addItemToCart } from '../../reducers/actions'
+import { addToCartReducer } from '../../contexts/CartContext'
+import { handleAddToCart } from '../../contexts/CartContext'
 
 export const coffees = [
     {
@@ -119,24 +120,11 @@ export const coffees = [
     },
 
 ]
-interface CartItem {
-    [coffeeId: number]: number;
-}
-function addToCartReducer(state: CartItem, action: any) {
-    switch(action.type) {
-        case 'ADD_ITEM_TO_CART':
-            const coffeeId = action.payload.coffeeId
-            const quantity = action.payload.quantity
-            return {
-                ...state,
-                [coffeeId]: quantity,
-            }
-        default: return state
-      }
-}
+
+
+
 
 export function Home() {
-    const [cart, dispatch] = useReducer(addToCartReducer, { } );
     
     const handleAddToCart = (coffeeId: number, quantity: number) => {
         console.log(cart)
