@@ -160,7 +160,7 @@ export function Home() {
                             <CoofeeCart 
                                 key={coffee.id}
                                 coffee={coffee}
-                                onClick={handleAddToCart}
+                                onClickAdd={handleAddToCart}
                             />
                         ))
                     }
