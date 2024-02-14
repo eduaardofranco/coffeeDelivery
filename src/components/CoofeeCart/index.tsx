@@ -30,7 +30,7 @@ export function CoofeeCart({ coffee, onClick }: Coofee) {
                 </p>
                 <Finalize>
                 <Counter initial={1} getQuantity={(quantity) => onClick(coffee.id, quantity)} />
-                    <AddCartButton>
+                    <AddCartButton onClick={() => onClick(coffee.id, 1)}>
                         <ShoppingCart size={22} weight="fill" />
                     </AddCartButton>
                 </Finalize>

@@ -120,37 +120,33 @@ export const coffees = [
 
 ]
 interface CartItem {
-    id: number
+    [coffeeId: number]: number;
 }
-export function Home() {
-    const [cart, dispatch] = useReducer(
-        (state: CartItem[], action: any) => {
-          switch (action.type) {
-            case 'addItemToCart': {
-              const coffeeId = action.payload.id;
-              const quantity = action.payload.quantity;
-    
-              const existingItem = state.find((item) => item.id === coffeeId);
-    
-              if (existingItem) {
-                // Atualizar a quantidade se o item já estiver no carrinho
-                return state.map((item) =>
-                  item.id === coffeeId ? { ...item, quantity } : item
-                );
-              } else {
-                // Adicionar um novo item se não estiver no carrinho
-                return [...state, { id: coffeeId, quantity }];
-              }
+function addToCartReducer(state: CartItem, action: any) {
+    switch(action.type) {
+        case 'ADD_ITEM_TO_CART':
+            const coffeeId = action.payload.coffeeId
+            const quantity = action.payload.quantity
+            return {
+                ...state,
+                [coffeeId]: quantity,
             }
-            default:
-              return state;
-          }
-        },
-        []
-      );
-      const handleQuantityChange = (coffeeId: number, quantity: number) => {
-          dispatch(addItemToCart(coffeeId, quantity))
-          console.log(cart)
+        default: return state
+      }
+}
+
+export function Home() {
+    const [cart, dispatch] = useReducer(addToCartReducer, { } );
+    
+    const handleAddToCart = (coffeeId: number, quantity: number) => {
+        console.log(cart)
+        dispatch({
+            type: 'ADD_ITEM_TO_CART',
+            payload: {
+                coffeeId: coffeeId,
+                quantity: quantity
+            }
+        })
     }
     return(
         <HomeContainer>
@@ -164,7 +160,7 @@ export function Home() {
                             <CoofeeCart 
                                 key={coffee.id}
                                 coffee={coffee}
-                                onClick={handleQuantityChange}
+                                onClick={handleAddToCart}
                             />
                         ))
                     }
