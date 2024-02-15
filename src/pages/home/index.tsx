@@ -128,7 +128,6 @@ export function Home() {
     const { cart, dispatch } = useContext(CartContext)
     
     const handleAddToCart = (coffeeId: number, quantity: number) => {
-        console.log(cart)
         dispatch({
             type: 'ADD_ITEM_TO_CART',
             payload: {
