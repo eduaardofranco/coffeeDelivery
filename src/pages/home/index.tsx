@@ -2,8 +2,6 @@ import { createContext, useContext, useReducer } from 'react'
 import banner from '../../assets/Intro.png'
 import { CoofeeCart } from '../../components/CoofeeCart'
 import { HomeContainer } from './styles'
-import { addToCartReducer } from '../../contexts/CartContext'
-import { handleAddToCart } from '../../contexts/CartContext'
 import { CartContext } from '../../contexts/CartContext'
 
 export const coffees = [

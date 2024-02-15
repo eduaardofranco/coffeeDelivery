@@ -1,7 +1,8 @@
-import React, { ReactNode, createContext, useReducer } from "react";
+import React, { ReactNode, createContext, useReducer, Dispatch } from "react";
 
 interface CartContextType {
     cart: CartItem | undefined
+    dispatch: Dispatch
 }
 export interface CartItem {
     [coffeeId: number]: number;
@@ -14,10 +15,19 @@ export function addToCartReducer(state: CartItem, action: any) {
         case 'ADD_ITEM_TO_CART':
             const coffeeId = action.payload.coffeeId
             const quantity = action.payload.quantity
-            return {
-                ...state,
-                [coffeeId]: quantity,
+            if(state.hasOwnProperty(coffeeId)) {
+                return {
+                    ...state,
+                    [coffeeId]: state[coffeeId] + quantity,
+                }
+            } else {
+                return {
+                    ...state,
+                    [coffeeId]: quantity,
+
+                }
             }
+
         default: return state
       }
 }
