@@ -1,10 +1,13 @@
-import { createContext, useReducer } from "react"
+import React, { ReactNode, createContext, useReducer } from "react";
 
 interface CartContextType {
     cart: CartItem | undefined
 }
 export interface CartItem {
     [coffeeId: number]: number;
+}
+interface CartContextProviderProps {
+    children: ReactNode;
 }
 export function addToCartReducer(state: CartItem, action: any) {
     switch(action.type) {
@@ -20,12 +23,12 @@ export function addToCartReducer(state: CartItem, action: any) {
 }
 export const CartContext = createContext({} as CartContextType)
 
-function CartContextProvider() {
-    const [cart, dispatch] = useReducer(addToCartReducer, { } );
-    
-    return( 
-        <CartContext.Provider value={ {cart, dispatch }}>
-            { children }
+export function CartContextProvider({ children }: CartContextProviderProps) {
+    const [cart, dispatch] = useReducer(addToCartReducer, {});
+
+    return (
+        <CartContext.Provider value={{ cart, dispatch }}>
+          {children}
         </CartContext.Provider>
-    )
+      );  
 }
