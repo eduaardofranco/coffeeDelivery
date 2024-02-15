@@ -1,7 +1,8 @@
 import { ShoppingCart } from 'phosphor-react'
 import { Counter } from '../Counter'
 import { CartContainer, Description, Footer, Finalize, AddCartButton } from './styles'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
+import { CartContext } from '../../contexts/CartContext'
 
 interface Coofee {
     key: number
@@ -15,10 +16,27 @@ interface Coofee {
 const imageUrl = '/src/assets/'
 export function CoofeeCart({ coffee, onClickAdd }: Coofee) {
     
+    const { dispatch } = useContext(CartContext) 
+
     const [coffeeQuantity, setCoffeeQuantity] = useState(1);
+    const [resetQuantity, setResetQuantity] = useState(false)  
+
+    
 
     function handleQuantityChange(quantity: number) {
       setCoffeeQuantity(quantity);
+    }
+
+    const handleAddToCart = (coffeeId: number, quantity: number) => {
+        dispatch({
+            type: 'ADD_ITEM_TO_CART',
+            payload: {
+                coffeeId: coffeeId,
+                quantity: quantity
+            }
+        })
+        setResetQuantity(!resetQuantity)
+
     }
 
     return(
@@ -37,8 +55,8 @@ export function CoofeeCart({ coffee, onClickAdd }: Coofee) {
                     <span>{coffee.price.toFixed(2)}</span>
                 </p>
                 <Finalize>
-                <Counter initial={1} getQuantity={handleQuantityChange} />
-                    <AddCartButton onClick={() => onClickAdd(coffee.id, coffeeQuantity)}>
+                <Counter initial={1} getQuantity={handleQuantityChange} resetQuantity={resetQuantity} />
+                    <AddCartButton onClick={() => handleAddToCart(coffee.id, coffeeQuantity)}>
                         <ShoppingCart size={22} weight="fill" />
                     </AddCartButton>
                 </Finalize>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react'
+
 import banner from '../../assets/Intro.png'
 import { CoofeeCart } from '../../components/CoofeeCart'
 import { HomeContainer } from './styles'
@@ -125,17 +125,7 @@ export const coffees = [
 
 export function Home() {
 
-    const { cart, dispatch } = useContext(CartContext)
     
-    const handleAddToCart = (coffeeId: number, quantity: number) => {
-        dispatch({
-            type: 'ADD_ITEM_TO_CART',
-            payload: {
-                coffeeId: coffeeId,
-                quantity: quantity
-            }
-        })
-    }
     return(
         <HomeContainer>
             <img className='banner' src={banner} alt="" />
@@ -148,7 +138,6 @@ export function Home() {
                             <CoofeeCart 
                                 key={coffee.id}
                                 coffee={coffee}
-                                onClickAdd={handleAddToCart}
                             />
                         ))
                     }

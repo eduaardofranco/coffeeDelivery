@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CounterContainer } from './styles'
 import { Plus, Minus } from 'phosphor-react'
 
@@ -6,8 +6,9 @@ interface QuantityProps {
     initial?: number
     issmall?: boolean
     getQuantity: (quantity: number) => void;
+    resetQuantity: () => void;
 }
-export function Counter({ initial = 1, issmall = false, getQuantity }: QuantityProps) {
+export function Counter({ initial = 1, issmall = false, getQuantity, resetQuantity }: QuantityProps) {
 
 
     const [quantity, setQuantity] = useState(initial)
@@ -22,6 +23,10 @@ export function Counter({ initial = 1, issmall = false, getQuantity }: QuantityP
             getQuantity(quantity - 1)
         }
     }
+    useEffect(() => {
+        //reset counter to 1 when button clicked
+        setQuantity(1)
+    }, [resetQuantity])
     return(
         <CounterContainer $issmall={issmall}>
             <button onClick={handdleRemoveItem}>
