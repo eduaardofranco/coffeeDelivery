@@ -25,15 +25,15 @@ export function Counter({ initial = 1, issmall = false, getQuantity, resetQuanti
     }
     useEffect(() => {
         //reset counter to 1 when button clicked
-        setQuantity(1)
+        setQuantity(initial)
     }, [resetQuantity])
     return(
         <CounterContainer $issmall={issmall}>
-            <button onClick={handdleRemoveItem}>
+            <button type="button" onClick={handdleRemoveItem}>
             <Minus size={16} />
             </button>
             <span>{quantity}</span>
-            <button onClick={handdleAdcItem}>
+            <button type="button" onClick={handdleAdcItem}>
                 <Plus size={16} />
             </button>
         </CounterContainer>

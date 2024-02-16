@@ -2,7 +2,6 @@
 import banner from '../../assets/Intro.png'
 import { CoofeeCart } from '../../components/CoofeeCart'
 import { HomeContainer } from './styles'
-import { CartContext } from '../../contexts/CartContext'
 import { useEffect, useState } from 'react'
 import { fetchCoffees } from '../../services/api'
 

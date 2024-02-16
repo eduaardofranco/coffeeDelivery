@@ -13,11 +13,13 @@ import { AddressContainer,
          RemoveButton,
          TotalFinalDetail 
         } from "./styles";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Counter } from "../../components/Counter";
-import { FieldError, FieldErrors, useForm } from 'react-hook-form'
 import  * as zod  from 'zod'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { fetchCoffees } from "../../services/api";
+import { CartContext } from '../../contexts/CartContext'
 
 
 const newAddressFormSchema = zod.object({
@@ -38,12 +40,18 @@ const newAddressFormSchema = zod.object({
 })
 
 export function Cart() {
+    const [formValidationError, setFormValidationError] = useState({})
+    const [coffees, setCoffees] = useState([])
+
+    const { cart } = useContext(CartContext) 
+
+    const imgUrl = '/src/assets'
     
+
     const { register, handleSubmit, formState: {errors} } = useForm({
         resolver: zodResolver(newAddressFormSchema)
     })
 
-    const [formValidationError, setFormValidationError] = useState({})
 
     function handdlePlaceOrder(data: any) {
         console.log(data)
@@ -54,6 +62,32 @@ export function Cart() {
         console.log('form errors', errors)
         setFormValidationError(errors)
     }
+
+    //return every coffee item in cart
+    const filteredCoffeesInCart = Object.entries(cart).flatMap(([key, value]) => {
+        return coffees.filter(coffee => key == coffee.id).map(filteredCoffee => ({
+          quantity: value,
+          coffee: filteredCoffee,
+        }));
+      });
+
+      function getQuantity() {
+
+      }
+      function resetQuantity() {
+
+      }
+
+    useEffect(() => {
+
+        fetchCoffees()
+        .then(data => {
+          setCoffees(data)
+        })
+        .catch(error => {
+          console.error('Ocorreu um erro:', error);
+        });
+    },[])
 
     return(
         <CartContainer>
@@ -203,36 +237,24 @@ export function Cart() {
                 <OrderContainer>
                     <h2>Selected Coffees</h2>
                     <OrderBox>
-                        <CoffeeItem>
-                            <img src="/src/assets/coffee1.png" alt="Coffee Name" />
-                            <div className="details">
-                                <h3>Traditional Espresso</h3>
-                                <div className="controls">
-                                    <Counter initial={2} issmall />
-                                    <RemoveButton>
-                                        <Trash size={16} />
-                                        Remove
-                                    </RemoveButton>
-                                </div>
+                        { filteredCoffeesInCart && filteredCoffeesInCart.map(coffeeItem => (
+                            <CoffeeItem key={coffeeItem.coffee.title}>
+                            
+                                <img src={`${imgUrl}/${coffeeItem.coffee.image}`} alt={coffeeItem.coffee.title} />
+                                <div className="details">
+                                    <h3>{coffeeItem.coffee.title}</h3>
+                                    <div className="controls">
+                                        <Counter initial={coffeeItem.quantity} getQuantity={getQuantity} resetQuantity={resetQuantity} issmall />
+                                        <RemoveButton type="button">
+                                            <Trash size={16} />
+                                            Remove
+                                        </RemoveButton>
+                                    </div>
 
-                            </div>
-                            <p className="price">€4.67</p>
-                        </CoffeeItem>
-                        <CoffeeItem>
-                            <img src="/src/assets/coffee6.png" alt="Coffee Name" />
-                            <div className="details">
-                                <h3>Latte</h3>
-                                <div className="controls">
-                                    <Counter initial={1} issmall />
-                                    <RemoveButton>
-                                        <Trash size={16} />
-                                        Remove
-                                    </RemoveButton>
                                 </div>
-
-                            </div>
-                            <p className="price">€2.80</p>
-                        </CoffeeItem>
+                                <p className="price">€4.67</p>
+                            </CoffeeItem>
+                        ))}
                         <div className="finalDetails">
                             <OrdemFinalDetail>
                                 <span>Items total</span>
