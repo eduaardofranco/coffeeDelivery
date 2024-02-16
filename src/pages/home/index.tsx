@@ -4,6 +4,7 @@ import { CoofeeCart } from '../../components/CoofeeCart'
 import { HomeContainer } from './styles'
 import { CartContext } from '../../contexts/CartContext'
 import { useEffect, useState } from 'react'
+import { fetchCoffees } from '../../services/api'
 
 
 
@@ -14,25 +15,13 @@ export function Home() {
     const [coffees, setCoffees] = useState([])
     
     useEffect(() => {
-          const fileCoffess = '/coffees.json'
-      
-      
-          fetch(fileCoffess)
-          .then(response => {
-              if(!response.ok) {
-                  throw new Error('Error fetching coffees')
-              }
-              return response.json()
-          })
-          .then(data => {
-              // Faça algo com os dados JSON
-              console.log('data:', data);
-              setCoffees(data)
-          
-            })
-            .catch(error => {
-              console.error("Ocorreu um erro:", error);
-            });
+        fetchCoffees()
+        .then(data => {
+          setCoffees(data)
+        })
+        .catch(error => {
+          console.error('Ocorreu um erro:', error);
+        });
 
       },[])
 
