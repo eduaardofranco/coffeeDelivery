@@ -115,6 +115,28 @@ export const CoffeeItem = styled.div`
         color: ${(props) => props.theme['brown-500']};
     }
 `;
+export const Quantity = styled.div`
+    background: ${(props) => props.theme['white-900']};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    padding: .5rem;
+
+    button {
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        color: ${(props) => props.theme['purple-500']};
+        font-size: 2rem;
+        &:hover {
+            color: ${(props) => props.theme['purple-700']};
+        }
+    }
+    span {
+        margin: 0 .8rem;
+    }
+`;
 export const RemoveButton = styled.button`
     background: ${(props) => props.theme['white-900']};
     border: none;

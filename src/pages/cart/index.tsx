@@ -1,4 +1,4 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "phosphor-react";
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plugs, Plus, Trash } from "phosphor-react";
 import { AddressContainer,
          AddressForm,
          AdressBox,
@@ -10,6 +10,7 @@ import { AddressContainer,
          OrderContainer,
          PaymentBox,
          PaymentButton,
+         Quantity,
          RemoveButton,
          TotalFinalDetail 
         } from "./styles";
@@ -42,6 +43,7 @@ const newAddressFormSchema = zod.object({
 export function Cart() {
     const [formValidationError, setFormValidationError] = useState({})
     const [coffees, setCoffees] = useState([])
+    const [quantity, setQuantity] = useState(0)
 
     const { cart } = useContext(CartContext) 
 
@@ -71,11 +73,11 @@ export function Cart() {
         }));
       });
 
-      function getQuantity() {
-
+      function removeItemQuantity(id) {
+        console.log(id)
       }
-      function resetQuantity() {
-
+      function addItemQuantity(id) {
+        console.log(id)
       }
 
     useEffect(() => {
@@ -244,7 +246,15 @@ export function Cart() {
                                 <div className="details">
                                     <h3>{coffeeItem.coffee.title}</h3>
                                     <div className="controls">
-                                        <Counter initial={coffeeItem.quantity} getQuantity={getQuantity} resetQuantity={resetQuantity} issmall />
+                                        <Quantity>
+                                            <button type="button" onClick={() => removeItemQuantity(coffeeItem.coffee.id)}>
+                                                <Minus size={16} />
+                                            </button>
+                                            <span>{coffeeItem.quantity}</span>
+                                            <button type="button" onClick={() => addItemQuantity(coffeeItem.coffee.id)}>
+                                                <Plus size={16} />
+                                            </button>
+                                        </Quantity>
                                         <RemoveButton type="button">
                                             <Trash size={16} />
                                             Remove
