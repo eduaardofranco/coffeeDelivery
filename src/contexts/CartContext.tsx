@@ -52,6 +52,11 @@ export function addToCartReducer(state: CartItem, action: any) {
             }
             return newState
         }
+        case 'REMOVE_ITEM_FROM_CART': {
+            const allItemsCart = { ...state}
+            delete allItemsCart[action.payload.coffeeId]
+            return allItemsCart
+        }
         default: return state
       }
 }

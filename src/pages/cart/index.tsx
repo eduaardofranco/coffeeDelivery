@@ -88,6 +88,14 @@ export function Cart() {
             }
         })
       }
+      function handleRemoveItem(id: number) {
+        dispatch({
+            type: 'REMOVE_ITEM_FROM_CART',
+            payload: {
+                coffeeId: id
+            }
+        })
+      }
 
     useEffect(() => {
 
@@ -264,7 +272,7 @@ export function Cart() {
                                                 <Plus size={16} />
                                             </button>
                                         </Quantity>
-                                        <RemoveButton type="button">
+                                        <RemoveButton type="button" onClick={() => handleRemoveItem(coffeeItem.coffee.id)}>
                                             <Trash size={16} />
                                             Remove
                                         </RemoveButton>
