@@ -33,7 +33,25 @@ export function addToCartReducer(state: CartItem, action: any) {
                 ...state,
                 ...storedCart
             }
+        case 'ADD_QUANTITY_ITEM_CART': 
+            return {
+                ...state,
+                [action.payload.cofeeId]: state[action.payload.cofeeId] + 1,
+            }
+        case 'REMOVE_QUANTITY_ITEM_CART': {
+            const updatedQuantity = state[action.payload.cofeeId] - 1;
 
+             //check is is quantity is less than zero
+            const newQuantity = Math.max(updatedQuantity, 0);
+
+            const newState = { ...state }
+            if(newQuantity === 0) {
+                delete newState[action.payload.cofeeId];
+            } else {
+                newState[action.payload.cofeeId] = newQuantity;
+            }
+            return newState
+        }
         default: return state
       }
 }
@@ -60,6 +78,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     //add cart to localstorage when it changes
     useEffect(() => {
         localStorage.setItem('@coffeeDelivery-cart', JSON.stringify(cart))
+        console.log(cart)
     }, [cart])
 
     return (

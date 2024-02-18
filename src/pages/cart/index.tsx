@@ -15,7 +15,6 @@ import { AddressContainer,
          TotalFinalDetail 
         } from "./styles";
 import { useContext, useEffect, useState } from "react";
-import { Counter } from "../../components/Counter";
 import  * as zod  from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -45,7 +44,7 @@ export function Cart() {
     const [coffees, setCoffees] = useState([])
     const [quantity, setQuantity] = useState(0)
 
-    const { cart } = useContext(CartContext) 
+    const { cart, dispatch } = useContext(CartContext) 
 
     const imgUrl = '/src/assets'
     
@@ -73,11 +72,21 @@ export function Cart() {
         }));
       });
 
-      function removeItemQuantity(id) {
-        console.log(id)
+      function removeItemQuantity(id: number) {
+        dispatch({
+            type: 'REMOVE_QUANTITY_ITEM_CART',
+            payload: {
+                cofeeId: id
+            }
+        })
       }
-      function addItemQuantity(id) {
-        console.log(id)
+      function addItemQuantity(id: number) {
+        dispatch({
+            type: 'ADD_QUANTITY_ITEM_CART',
+            payload: {
+                cofeeId: id
+            }
+        })
       }
 
     useEffect(() => {
