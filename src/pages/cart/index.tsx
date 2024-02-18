@@ -43,6 +43,8 @@ export function Cart() {
     const [formValidationError, setFormValidationError] = useState({})
     const [coffees, setCoffees] = useState([])
     const [quantity, setQuantity] = useState(0)
+    const [totalCartPrice, setTotalCartPrice] = useState(0)
+    // const [filteredCoffeesInCart, setFilteredCoffeesInCart] = useState([])
 
     const { cart, dispatch } = useContext(CartContext) 
 
@@ -71,8 +73,16 @@ export function Cart() {
           coffee: filteredCoffee,
         }));
       });
+      //calculate total per coffetype
+      function calculateTotalCartPrice() {
+        const pricePerCoffeeType = filteredCoffeesInCart.map(item => {
+            const totalPerItem = item.quantity * item.coffee.price
+            return totalPerItem
+        })
+        setTotalCartPrice(pricePerCoffeeType.reduce((acumulator, current) => acumulator + current, 0))
+      }
 
-      function removeItemQuantity(id: number) {
+      function handdleRemoveItemQuantity(id: number) {
         dispatch({
             type: 'REMOVE_QUANTITY_ITEM_CART',
             payload: {
@@ -80,7 +90,7 @@ export function Cart() {
             }
         })
       }
-      function addItemQuantity(id: number) {
+      function handdleAddItemQuantity(id: number) {
         dispatch({
             type: 'ADD_QUANTITY_ITEM_CART',
             payload: {
@@ -88,7 +98,7 @@ export function Cart() {
             }
         })
       }
-      function handleRemoveItem(id: number) {
+      function handdleRemoveItem(id: number) {
         dispatch({
             type: 'REMOVE_ITEM_FROM_CART',
             payload: {
@@ -108,6 +118,11 @@ export function Cart() {
         });
     },[])
 
+    useEffect(() => {
+        if(Object.keys(filteredCoffeesInCart).length > 0) {
+            calculateTotalCartPrice()
+        }
+    }, [cart])
     return(
         <CartContainer>
             <form action="" onSubmit={handleSubmit(handdlePlaceOrder, onError)}>
@@ -264,28 +279,28 @@ export function Cart() {
                                     <h3>{coffeeItem.coffee.title}</h3>
                                     <div className="controls">
                                         <Quantity>
-                                            <button type="button" onClick={() => removeItemQuantity(coffeeItem.coffee.id)}>
+                                            <button type="button" onClick={() => handdleRemoveItemQuantity(coffeeItem.coffee.id)}>
                                                 <Minus size={16} />
                                             </button>
                                             <span>{coffeeItem.quantity}</span>
-                                            <button type="button" onClick={() => addItemQuantity(coffeeItem.coffee.id)}>
+                                            <button type="button" onClick={() => handdleAddItemQuantity(coffeeItem.coffee.id)}>
                                                 <Plus size={16} />
                                             </button>
                                         </Quantity>
-                                        <RemoveButton type="button" onClick={() => handleRemoveItem(coffeeItem.coffee.id)}>
+                                        <RemoveButton type="button" onClick={() => handdleRemoveItem(coffeeItem.coffee.id)}>
                                             <Trash size={16} />
                                             Remove
                                         </RemoveButton>
                                     </div>
 
                                 </div>
-                                <p className="price">€4.67</p>
+                                <p className="price">€{coffeeItem.coffee.price}</p>
                             </CoffeeItem>
                         ))}
                         <div className="finalDetails">
                             <OrdemFinalDetail>
                                 <span>Items total</span>
-                                <span>€20.30</span>
+                                <span>€{totalCartPrice}</span>
                             </OrdemFinalDetail>
                             <OrdemFinalDetail>
                                 <span>Delivery</span>
