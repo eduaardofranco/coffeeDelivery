@@ -60,10 +60,40 @@ export function addToCartReducer(state: CartItem, action: any) {
         default: return state
       }
 }
+interface NewOrderProps {
+    street: string
+    houseNumber: number
+    neighourhood: string
+    city: string
+    uf: string
+    paymentType: 'creditCard' | 'debitCard' | 'cash'
+}
+type ActionCreateOrderType = {
+    type: 'CREATE_NEW_ORDER';
+    payload: NewOrderProps;
+  };
+export function createNewOrder( state: NewOrderProps, action: ActionCreateOrderType ) {
+    console.log('chamou')
+    switch(action.type) {
+        case 'CREATE_NEW_ORDER':
+            return {
+                ...state,
+                street: action.payload.street,
+                houseNumber: action.payload.houseNumber,
+                neighourhood: action.payload.neighourhood,
+                city: action.payload.city,
+                uf: action.payload.uf,
+                paymentType: action.payload.paymentType
+            }
+            default:
+                return state;
+    }
+}
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
     const [cart, dispatch] = useReducer(addToCartReducer, {});
+    const [orders, setOrders] = useReducer(createNewOrder, [])
 
     useEffect(() => {
         //check if there is any item on localstorage
@@ -83,7 +113,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     //add cart to localstorage when it changes
     useEffect(() => {
         localStorage.setItem('@coffeeDelivery-cart', JSON.stringify(cart))
-        console.log(cart)
     }, [cart])
 
     return (

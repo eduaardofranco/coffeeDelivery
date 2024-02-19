@@ -57,6 +57,17 @@ export function Cart() {
 
     function handdlePlaceOrder(data: any) {
         console.log(data)
+        dispatch({
+            type: 'CREATE_NEW_ORDER',
+            payload: {
+                street: data.street,
+                houseNumber: data.houseNumber,
+                neighourhood: data.neighbourhood,
+                city: data.city,
+                uf: data.uf,
+                paymentType: data.paymentType
+            }
+        })
         setFormValidationError({})
 
     }
@@ -98,8 +109,10 @@ export function Cart() {
         })
       }
 
+    // delivery fee
+    const deliveryFee = 4.6
+
     useEffect(() => {
-        console.log('oi')
         fetchCoffees()
         .then(data => {
           setCoffees(data)
@@ -115,7 +128,7 @@ export function Cart() {
             //fetch data
             const coffeesData = await fetchCoffees();
       
-            //map cart intems
+            //map cart items
             const cartItemsData = Object.entries(cart).flatMap(([key, value]) => {
               return coffeesData.filter(coffee => key == coffee.id).map(filteredCoffee => ({
                 quantity: value,
@@ -321,11 +334,11 @@ export function Cart() {
                             </OrdemFinalDetail>
                             <OrdemFinalDetail>
                                 <span>Delivery</span>
-                                <span>€4.90</span>
+                                <span>€{deliveryFee.toFixed(2)}</span>
                             </OrdemFinalDetail>
                             <TotalFinalDetail>
                                 <span>Total</span>
-                                <span>€30.50</span>
+                                <span>€{(totalCartPrice+deliveryFee).toFixed(2)}</span>
                             </TotalFinalDetail>
                         </div>
                         <ConfirmButton type="submit">Confirm Order</ConfirmButton>
