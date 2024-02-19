@@ -42,7 +42,6 @@ const newAddressFormSchema = zod.object({
 export function Cart() {
     const [formValidationError, setFormValidationError] = useState({})
     const [coffees, setCoffees] = useState([])
-    const [quantity, setQuantity] = useState(0)
     const [totalCartPrice, setTotalCartPrice] = useState(0)
     // const [filteredCoffeesInCart, setFilteredCoffeesInCart] = useState([])
 
@@ -73,14 +72,6 @@ export function Cart() {
           coffee: filteredCoffee,
         }));
       });
-      //calculate total per coffetype
-      function calculateTotalCartPrice() {
-        const pricePerCoffeeType = filteredCoffeesInCart.map(item => {
-            const totalPerItem = item.quantity * item.coffee.price
-            return totalPerItem
-        })
-        setTotalCartPrice(pricePerCoffeeType.reduce((acumulator, current) => acumulator + current, 0))
-      }
 
       function handdleRemoveItemQuantity(id: number) {
         dispatch({
@@ -108,7 +99,7 @@ export function Cart() {
       }
 
     useEffect(() => {
-
+        console.log('oi')
         fetchCoffees()
         .then(data => {
           setCoffees(data)
@@ -119,10 +110,36 @@ export function Cart() {
     },[])
 
     useEffect(() => {
-        if(Object.keys(filteredCoffeesInCart).length > 0) {
-            calculateTotalCartPrice()
-        }
-    }, [cart])
+        const calculateTotal = async () => {
+          try {
+            //fetch data
+            const coffeesData = await fetchCoffees();
+      
+            //map cart intems
+            const cartItemsData = Object.entries(cart).flatMap(([key, value]) => {
+              return coffeesData.filter(coffee => key == coffee.id).map(filteredCoffee => ({
+                quantity: value,
+                coffee: filteredCoffee,
+              }));
+            });
+      
+            //calc total in cart
+            const total = cartItemsData.reduce((accumulator, current) => {
+              const totalPerItem = current.quantity * current.coffee.price;
+              return accumulator + totalPerItem;
+            }, 0);
+      
+            //update the total const
+            setTotalCartPrice(total);
+          } catch (error) {
+            console.error('error calculating cartTotal:', error);
+          }
+        };
+      
+        // Chama a função para calcular o total
+        calculateTotal();
+      }, [cart]);
+      
     return(
         <CartContainer>
             <form action="" onSubmit={handleSubmit(handdlePlaceOrder, onError)}>
@@ -300,7 +317,7 @@ export function Cart() {
                         <div className="finalDetails">
                             <OrdemFinalDetail>
                                 <span>Items total</span>
-                                <span>€{totalCartPrice}</span>
+                                <span>€{totalCartPrice.toFixed(2)}</span>
                             </OrdemFinalDetail>
                             <OrdemFinalDetail>
                                 <span>Delivery</span>
