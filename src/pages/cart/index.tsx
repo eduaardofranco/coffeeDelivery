@@ -41,7 +41,7 @@ const newAddressFormSchema = zod.object({
 interface NewOrderProps {
     street: string
     houseNumber: number
-    neighourhood: string
+    neighbourhood: string
     city: string
     uf: string
     paymentType: 'creditCard' | 'debitCard' | 'cash'
@@ -50,18 +50,17 @@ type ActionCreateOrderType = {
     type: 'CREATE_NEW_ORDER';
     payload: NewOrderProps;
   };
-export function createNewOrder( state: NewOrderProps, action: ActionCreateOrderType ) {
+function createNewOrder( state: NewOrderProps[], action: ActionCreateOrderType ) {
     switch(action.type) {
         case 'CREATE_NEW_ORDER':
             return {
-                ...state,
-                street: action.payload.street,
-                houseNumber: action.payload.houseNumber,
-                neighourhood: action.payload.neighourhood,
-                city: action.payload.city,
-                uf: action.payload.uf,
-                paymentType: action.payload.paymentType
-            }
+                    street: action.payload.street,
+                    houseNumber: action.payload.houseNumber,
+                    neighbourhood: action.payload.neighbourhood,
+                    city: action.payload.city,
+                    uf: action.payload.uf,
+                    paymentType: action.payload.paymentType
+                }
             default:
                 return state;
     }
@@ -90,7 +89,7 @@ export function Cart() {
             payload: {
                 street: data.street,
                 houseNumber: data.houseNumber,
-                neighourhood: data.neighbourhood,
+                neighbourhood: data.neighbourhood,
                 city: data.city,
                 uf: data.uf,
                 paymentType: data.payment
