@@ -1,4 +1,4 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plugs, Plus, Trash } from "phosphor-react";
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from "phosphor-react";
 import { AddressContainer,
          AddressForm,
          AdressBox,
@@ -14,7 +14,7 @@ import { AddressContainer,
          RemoveButton,
          TotalFinalDetail 
         } from "./styles";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import  * as zod  from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -38,12 +38,41 @@ const newAddressFormSchema = zod.object({
     })
 
 })
+interface NewOrderProps {
+    street: string
+    houseNumber: number
+    neighourhood: string
+    city: string
+    uf: string
+    paymentType: 'creditCard' | 'debitCard' | 'cash'
+}
+type ActionCreateOrderType = {
+    type: 'CREATE_NEW_ORDER';
+    payload: NewOrderProps;
+  };
+export function createNewOrder( state: NewOrderProps, action: ActionCreateOrderType ) {
+    switch(action.type) {
+        case 'CREATE_NEW_ORDER':
+            return {
+                ...state,
+                street: action.payload.street,
+                houseNumber: action.payload.houseNumber,
+                neighourhood: action.payload.neighourhood,
+                city: action.payload.city,
+                uf: action.payload.uf,
+                paymentType: action.payload.paymentType
+            }
+            default:
+                return state;
+    }
+}
 
 export function Cart() {
     const [formValidationError, setFormValidationError] = useState({})
     const [coffees, setCoffees] = useState([])
     const [totalCartPrice, setTotalCartPrice] = useState(0)
-    // const [filteredCoffeesInCart, setFilteredCoffeesInCart] = useState([])
+    const [orders, orderDispatch] = useReducer(createNewOrder, [])
+    console.log(orders)
 
     const { cart, dispatch } = useContext(CartContext) 
 
@@ -55,9 +84,8 @@ export function Cart() {
     })
 
 
-    function handdlePlaceOrder(data: any) {
-        console.log(data)
-        dispatch({
+    function handdlePlaceOrder(data: NewOrderProps) {
+        orderDispatch({
             type: 'CREATE_NEW_ORDER',
             payload: {
                 street: data.street,
@@ -65,7 +93,7 @@ export function Cart() {
                 neighourhood: data.neighbourhood,
                 city: data.city,
                 uf: data.uf,
-                paymentType: data.paymentType
+                paymentType: data.payment
             }
         })
         setFormValidationError({})
@@ -121,6 +149,11 @@ export function Cart() {
           console.error('Ocorreu um erro:', error);
         });
     },[])
+
+     //add cart to localstorage when it changes
+     useEffect(() => {
+        localStorage.setItem('@coffeeDelivery-orders', JSON.stringify(orders))
+    }, [orders])
 
     useEffect(() => {
         const calculateTotal = async () => {
