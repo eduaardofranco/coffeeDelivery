@@ -11,7 +11,7 @@ export function OrderConfirmation() {
                 <OrderBox>
                     <ItemDetail>
                         <div>
-                            <Icon color='address'>
+                            <Icon $color='address'>
                                 <MapPin size={16} weight="fill" />
                             </Icon>
                             <p>Delivery at <strong>João Daniel Martinelli, 102</strong> Farrapos - Porto Alegre, RS</p>
@@ -19,7 +19,7 @@ export function OrderConfirmation() {
                     </ItemDetail>
                     <ItemDetail>
                         <div>
-                            <Icon color="time">
+                            <Icon $color="time">
                                 <Timer  size={16} weight="fill" />
                             </Icon>
                             <p>Estimate time</p>
@@ -28,7 +28,7 @@ export function OrderConfirmation() {
                     </ItemDetail>
                     <ItemDetail>
                         <div>
-                            <Icon color="payment">
+                            <Icon $color="payment">
                                 <CurrencyDollar size={16} />
                             </Icon>
                             <p>Payment upon delivery</p>

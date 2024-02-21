@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { transformer } from 'zod';
 
 export const Container = styled.div`
     margin: 1rem auto;
@@ -29,9 +30,27 @@ export const ItemDetail = styled.div`
     color: ${(props) => props.theme['brown-500']};
 `;
 
-export const Icon = styled.span`
+export const Icon = styled.span<{ $color?: string}>`
     height: 32px;
     width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background: ${props => {
+        switch(props.$color) {
+            case 'address':
+                return props.theme['purple-500']
+            case 'time': 
+                return props.theme['yellow-500']
+            case 'payment':
+                return props.theme['yellow-700']
+            default: 
+            return 'transparent'
+        }
+    }};
+    svg {
+        color: ${(props) => props.theme['white-100']}
+    }
 
-    /* color: ${(props) => props.theme['white-100']} */
 `;
