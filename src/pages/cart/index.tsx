@@ -20,6 +20,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { fetchCoffees } from "../../services/api";
 import { CartContext } from '../../contexts/CartContext'
+import { useNavigate } from 'react-router-dom'
 
 
 const newAddressFormSchema = zod.object({
@@ -71,9 +72,11 @@ export function Cart() {
     const [coffees, setCoffees] = useState([])
     const [totalCartPrice, setTotalCartPrice] = useState(0)
     const [orders, orderDispatch] = useReducer(createNewOrder, [])
-    console.log(orders)
+    
 
     const { cart, dispatch } = useContext(CartContext) 
+
+    const navigate = useNavigate()
 
     const imgUrl = '/src/assets'
     
@@ -96,6 +99,15 @@ export function Cart() {
             }
         })
         setFormValidationError({})
+        navigate('/confirmation', { state: {
+            street: data.street,
+            houseNumber: data.houseNumber,
+            neighbourhood: data.neighbourhood,
+            city: data.city,
+            uf: data.uf,
+            paymentType: data.payment
+        }
+        })
 
     }
     function onError( errors: FieldErrors<typeof newAddressFormSchema>) {

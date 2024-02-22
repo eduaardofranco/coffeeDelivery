@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const CartContainer = styled.main`
     width: 1120px;
     margin: 0 auto;
+    min-height: calc(100vh - 155px);
     
     h1, h2 {
         font-size: 1.8rem;
