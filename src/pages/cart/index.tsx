@@ -106,8 +106,12 @@ export function Cart() {
             city: data.city,
             uf: data.uf,
             paymentType: data.payment
-        }
+            }
         })
+        dispatch({
+            type: 'REMOVE_ALL_FROM_CART'
+        })
+        localStorage.removeItem('cart');
 
     }
     function onError( errors: FieldErrors<typeof newAddressFormSchema>) {
@@ -160,11 +164,6 @@ export function Cart() {
           console.error('Ocorreu um erro:', error);
         });
     },[])
-
-     //add cart to localstorage when it changes
-     useEffect(() => {
-        localStorage.setItem('@coffeeDelivery-orders', JSON.stringify(orders))
-    }, [orders])
 
     useEffect(() => {
         const calculateTotal = async () => {

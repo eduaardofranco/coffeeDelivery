@@ -57,6 +57,9 @@ export function addToCartReducer(state: CartItem, action: any) {
             delete allItemsCart[action.payload.coffeeId]
             return allItemsCart
         }
+        case 'REMOVE_ALL_FROM_CART': {
+            return {  }
+        }
         default: return state
       }
 }
