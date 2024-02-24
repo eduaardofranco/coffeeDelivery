@@ -23,12 +23,12 @@ Zod (Form Validation)
 
 ### Clone the Repository:
 ```bash
-git clone https://github.com/your-username/Coffee-Delivery.git
+git clone https://github.com/eduaardofranco/coffeeDelivery.git
 ```
 
 ### Navigate to the Project Directory:
 ```bash
-cd Coffee-Delivery
+cd coffeeDelivery
 ```
 ### Install Dependencies:
 ```bash
