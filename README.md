@@ -41,3 +41,15 @@ npm install
 npm run dev
 
 ```
+
+## Screenshots
+
+### Home
+<img src="src/assets/screenshots/home.png" alt="Home Page" width="300" />
+
+### Cart
+<img src="src/assets/screenshots/cart.png" alt="Cart Page" width="300" />
+
+### Order Confirmation
+
+<img src="src/assets/screenshots/confirmation.png" alt="Confirmation PAge" width="300" />
