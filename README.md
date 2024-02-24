@@ -1,30 +1,43 @@
-# React + TypeScript + Vite
+# Coffee Delivery - Online Coffee Ordering Interface
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Coffee Delivery is a front-end interface for online coffee orders, allowing users to seamlessly browse and add their favorite coffee items to the cart before completing the order. Developed using React with TypeScript, the project employs the use of reducers to efficiently manage and handle application states.
 
-Currently, two official plugins are available:
+### Key Features:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ - Browse and select from a variety of coffee options.
+ - Add chosen items to the cart for a streamlined ordering experience.
+ - Utilizes React and TypeScript for a robust and type-safe development environment.
+ - State management through reducers ensures smooth handling of application states.
+ - Form handling powered by React Hook Form for an efficient and performant approach.
+ - Form validation implemented with Zod for robust and reliable input validation.
 
-## Expanding the ESLint configuration
+### Technologies Used:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+React
+TypeScript
+Reducer (State Management)
+React Hook Form (Form Handling)
+Zod (Form Validation)
 
-- Configure the top-level `parserOptions` property like this:
+## Setup Instructions
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+### Clone the Repository:
+```bash
+git clone https://github.com/your-username/Coffee-Delivery.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Navigate to the Project Directory:
+```bash
+cd Coffee-Delivery
+```
+### Install Dependencies:
+```bash
+npm install
+
+```
+
+### Run the Project:
+```bash
+npm run dev
+
+```
